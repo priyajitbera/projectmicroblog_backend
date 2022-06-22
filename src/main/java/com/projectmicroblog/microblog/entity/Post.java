@@ -55,12 +55,12 @@ public class Post {
     private Date creationDate = new Date();
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name="user_id", nullable = false)
     private User user;
 
-    // @OneToMany(mappedBy="post")
-    // private List<Reply> replies;
+    @OneToMany(mappedBy="post")
+    private List<Reply> replies;
 
     // @OneToMany(mappedBy = "post")
     // private List<Reaction> reactions;

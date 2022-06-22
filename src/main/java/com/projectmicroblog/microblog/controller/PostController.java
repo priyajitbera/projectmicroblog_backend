@@ -22,7 +22,7 @@ public class PostController {
         return postService.savePost(postModel);
     }
 
-    @RequestMapping("/getPostByid")
+    @RequestMapping("/getPostById")
     public Post getPost( @RequestParam(name = "postId") Long postId){
         return postService.findPostById(postId);
     }
