@@ -6,6 +6,7 @@ import com.projectmicroblog.microblog.model.UserModel;
 public interface UserService {
     
     public User saveUser(UserModel userModel);
-    public boolean isUserIdAvailable(String userName);
+    public boolean isUserNameAvailable(String userName);
     public User findById(Long userId);
+    public User findByUserName(String userName);
 }

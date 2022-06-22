@@ -28,4 +28,14 @@ public class UserController {
     public User getUser( @RequestParam(name = "userId") Long userId){
         return userService.findById(userId);
     }
+
+    @GetMapping("/getByUserName")
+    public User getUserByUserName( @RequestParam(name="userName") String userName){
+        return userService.findByUserName(userName);
+    }
+
+    @GetMapping("/isUserNameAvailable")
+    public boolean isUserNameAvailable( @RequestParam(name="userName") String userName){
+        return userService.isUserNameAvailable(userName);
+    }
 }

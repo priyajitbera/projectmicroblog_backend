@@ -11,10 +11,13 @@ import javax.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -31,17 +34,19 @@ public class Reaction {
         generator = "reaction_sequence"
     )
     private Long reactionId;
+
+    @Builder.Default
     private TYPE type = Reaction.TYPE.LIKE; //DEFAULT
 
-    @ManyToOne
-    @JoinColumn(name="user_id")
-    private User user;
+    // @ManyToOne
+    // @JoinColumn(name="user_id")
+    // private User user;
 
-    @ManyToOne
-    @JoinColumn(name="post_id")
-    private Post post;
+    // @ManyToOne
+    // @JoinColumn(name="post_id")
+    // private Post post;
 
-    @ManyToOne
-    @JoinColumn(name="reply_id")
-    private Reply reply;
+    // @ManyToOne
+    // @JoinColumn(name="reply_id")
+    // private Reply reply;
 }

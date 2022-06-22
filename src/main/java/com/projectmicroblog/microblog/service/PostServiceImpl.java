@@ -1,5 +1,7 @@
 package com.projectmicroblog.microblog.service;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +21,13 @@ public class PostServiceImpl implements PostService{
 
     public Post savePost(PostModel postModel){
         Long userId = postModel.getUserId();
-        User user = userService.findById(userId);
-        if(user==null) return null; //TODO: raise exception
-        
+        User user = userService.findById(userId); //TODO: raise exception
         Post post = Post.builder()
                     .caption(postModel.getCaption())
                     .user(user)
                     .build();
+        System.out.println(user);
+        System.out.println(post);
         return postRepository.save(post);
     }
 

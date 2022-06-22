@@ -1,5 +1,7 @@
 package com.projectmicroblog.microblog.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,7 @@ public class UserServiceImpl implements UserService{
 
     public User saveUser(UserModel userModel){
         String userId = userModel.getUserName();
-        if(!isUserIdAvailable(userId)) return null; //TODO: raise exception
+        if(!isUserNameAvailable(userId)) return null; //TODO: raise exception
         User user = User.builder()
                     .userName(userModel.getUserName())
                     .firstName(userModel.getFirstName())
@@ -28,8 +30,10 @@ public class UserServiceImpl implements UserService{
     public User findById(Long userId){
         return userRepository.findById(userId).get(); //TODO: raise exception
     }
-
-    public boolean isUserIdAvailable(String userName){
-        return true; //TODO: implement function
+    public User findByUserName(String userName){
+        return userRepository.findByUserName(userName).get(); //TODO: raise exception
+    }
+    public boolean isUserNameAvailable(String userName){
+        return !userRepository.findByUserName(userName).isPresent();
     }
 }

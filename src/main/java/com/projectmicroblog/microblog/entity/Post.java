@@ -3,6 +3,7 @@ package com.projectmicroblog.microblog.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,13 +19,19 @@ import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.ManyToAny;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -42,15 +49,19 @@ public class Post {
     )
     private Long postId;
     private String caption;
+
+    @Column(nullable = false)
+    @Builder.Default
     private Date creationDate = new Date();
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy="post")
-    private List<Reply> replies;
+    // @OneToMany(mappedBy="post")
+    // private List<Reply> replies;
 
-    @OneToMany(mappedBy = "post")
-    private List<Reaction> reactions;
+    // @OneToMany(mappedBy = "post")
+    // private List<Reaction> reactions;
 }

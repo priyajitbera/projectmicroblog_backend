@@ -14,10 +14,14 @@ import javax.persistence.SequenceGenerator;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Reply {
@@ -37,14 +41,14 @@ public class Reply {
     @Column(nullable = false)
     private String reply;
 
-    @ManyToOne
-    @JoinColumn(name = "post_id", nullable=false)
-    private Post post;
+    // @ManyToOne
+    // @JoinColumn(name = "post_id", nullable=false)
+    // private Post post;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    // @ManyToOne
+    // @JoinColumn(name = "user_id", nullable = false)
+    // private User user;
 
-    @OneToMany(mappedBy = "reply")
-    private List<Reaction> reactions;
+    // @OneToMany(mappedBy = "reply")
+    // private List<Reaction> reactions;
 }
