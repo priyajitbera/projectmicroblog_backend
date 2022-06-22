@@ -10,8 +10,8 @@ import com.projectmicroblog.microblog.model.ReplyModel;
 import com.projectmicroblog.microblog.repository.ReplyRepository;
 
 @Service
-public class ReplyServiceImpl implements ReplyService{
-    
+public class ReplyServiceImpl implements ReplyService {
+
     @Autowired
     private UserService userService;
 
@@ -21,21 +21,21 @@ public class ReplyServiceImpl implements ReplyService{
     @Autowired
     private ReplyRepository replyRepository;
 
-    public Reply saveReply(ReplyModel replyModel){ //TODO: implement method
+    public Reply saveReply(ReplyModel replyModel) { // TODO: implement method
 
-        User user = userService.findById(replyModel.getUserId()); //TODO: raise exception
-        Post post = postService.findPostById(replyModel.getPostId()); //TODO: raise exception
-        
+        User user = userService.findById(replyModel.getUserId()); // TODO: raise exception
+        Post post = postService.findPostById(replyModel.getPostId()); // TODO: raise exception
+
         Reply reply = Reply.builder()
-        .user(user)
-        .post(post)
-        .reply(replyModel.getReply())
-        .build();
-        
+                .user(user)
+                .post(post)
+                .reply(replyModel.getReply())
+                .build();
+
         return replyRepository.save(reply);
     }
 
-    public Reply findReplyById(Long replyId){
+    public Reply findReplyById(Long replyId) {
         return replyRepository.findById(replyId).get();
     }
 }

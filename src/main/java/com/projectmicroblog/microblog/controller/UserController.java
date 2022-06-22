@@ -15,27 +15,27 @@ import com.projectmicroblog.microblog.service.UserService;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    
+
     @Autowired
     private UserService userService;
 
     @PostMapping("/saveUser")
-    public User saveUser( @RequestBody UserModel userModel){
+    public User saveUser(@RequestBody UserModel userModel) {
         return userService.saveUser(userModel);
     }
 
     @GetMapping("/getUserById")
-    public User getUser( @RequestParam(name = "userId") Long userId){
+    public User getUser(@RequestParam(name = "userId") Long userId) {
         return userService.findById(userId);
     }
 
     @GetMapping("/getByUserName")
-    public User getUserByUserName( @RequestParam(name="userName") String userName){
+    public User getUserByUserName(@RequestParam(name = "userName") String userName) {
         return userService.findByUserName(userName);
     }
 
     @GetMapping("/isUserNameAvailable")
-    public boolean isUserNameAvailable( @RequestParam(name="userName") String userName){
+    public boolean isUserNameAvailable(@RequestParam(name = "userName") String userName) {
         return userService.isUserNameAvailable(userName);
     }
 }

@@ -31,16 +31,11 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 public class User {
-    public static enum TYPE{INDIVIDUAL, ORGANIZATION};
+    public static final String INDIVIDUAL = "individual";
+    public static final String ORGANAZATION = "organization";
     @Id
-    @SequenceGenerator(
-        name="user_sequence",
-        sequenceName = "user_sequence",
-        allocationSize = 1)
-    @GeneratedValue(
-        strategy = GenerationType.SEQUENCE,
-        generator = "user_sequence"
-    )
+    @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
     private Long userId;
 
     @Column(nullable = false, unique = true)
@@ -54,10 +49,10 @@ public class User {
     private String email;
 
     @Builder.Default
-    private Boolean verified=false;
+    private Boolean verified = false;
 
     @Builder.Default
-    private TYPE type = TYPE.INDIVIDUAL; //DEFAULT
+    private String type = User.INDIVIDUAL; // DEFAULT
 
     @OneToMany(mappedBy = "user")
     private List<Post> posts;
@@ -65,7 +60,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Reply> replies;
 
-    // @OneToMany(mappedBy = "user")
-    // private List<Reaction> reactions;
+    @OneToMany(mappedBy = "user")
+    private List<Reaction> reactions;
 
 }

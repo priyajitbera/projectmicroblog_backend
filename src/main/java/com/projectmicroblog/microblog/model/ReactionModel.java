@@ -1,8 +1,17 @@
 package com.projectmicroblog.microblog.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ReactionModel {
-    private String reactionType="like";
-    private Long user_id;
-    private Long post_id;
-    private Long reply_id;
+    private String type;
+    private Long userId;
+    private Long postId;
+    private Long replyId;
 }

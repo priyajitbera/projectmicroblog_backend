@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class UserModel {
-    
+
     private String userName;
     private String firstName;
     private String lastName;

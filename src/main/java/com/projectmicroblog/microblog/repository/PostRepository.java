@@ -7,5 +7,5 @@ import com.projectmicroblog.microblog.entity.Post;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
-    
+
 }

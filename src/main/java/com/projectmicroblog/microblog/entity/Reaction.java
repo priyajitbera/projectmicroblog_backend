@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,31 +23,29 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class Reaction {
-    public static enum TYPE {LIKE, CELEBRATE, LOVE};
+    public static final String LIKE = "like";
+    public static final String CELEBRATE = "celebrate";
+    public static final String LOVE = "love";
     @Id
-    @SequenceGenerator(
-        name = "reaction_sequence",
-        sequenceName = "reaction_sequence",
-        allocationSize = 1
-    )
-    @GeneratedValue(
-        strategy = GenerationType.SEQUENCE,
-        generator = "reaction_sequence"
-    )
+    @SequenceGenerator(name = "reaction_sequence", sequenceName = "reaction_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reaction_sequence")
     private Long reactionId;
 
     @Builder.Default
-    private TYPE type = Reaction.TYPE.LIKE; //DEFAULT
+    private String type = Reaction.LIKE; // DEFAULT
 
-    // @ManyToOne
-    // @JoinColumn(name="user_id")
-    // private User user;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    // @ManyToOne
-    // @JoinColumn(name="post_id")
-    // private Post post;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
 
-    // @ManyToOne
-    // @JoinColumn(name="reply_id")
-    // private Reply reply;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "reply_id")
+    private Reply reply;
 }

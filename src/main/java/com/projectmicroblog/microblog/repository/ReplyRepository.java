@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.projectmicroblog.microblog.entity.Reply;
 
 @Repository
-public interface ReplyRepository extends JpaRepository<Reply, Long>{
-    
+public interface ReplyRepository extends JpaRepository<Reply, Long> {
+
 }

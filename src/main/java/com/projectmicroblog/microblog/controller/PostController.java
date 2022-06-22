@@ -13,17 +13,17 @@ import com.projectmicroblog.microblog.service.PostService;
 @RestController
 @RequestMapping("/post")
 public class PostController {
-    
+
     @Autowired
     private PostService postService;
 
     @RequestMapping("/savePost")
-    public Post savePost( @RequestBody PostModel postModel){
+    public Post savePost(@RequestBody PostModel postModel) {
         return postService.savePost(postModel);
     }
 
     @RequestMapping("/getPostById")
-    public Post getPost( @RequestParam(name = "postId") Long postId){
+    public Post getPost(@RequestParam(name = "postId") Long postId) {
         return postService.findPostById(postId);
     }
 }

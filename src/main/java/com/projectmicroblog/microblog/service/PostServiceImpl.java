@@ -11,7 +11,7 @@ import com.projectmicroblog.microblog.model.PostModel;
 import com.projectmicroblog.microblog.repository.PostRepository;
 
 @Service
-public class PostServiceImpl implements PostService{
+public class PostServiceImpl implements PostService {
 
     @Autowired
     private PostRepository postRepository;
@@ -19,19 +19,19 @@ public class PostServiceImpl implements PostService{
     @Autowired
     private UserService userService;
 
-    public Post savePost(PostModel postModel){
+    public Post savePost(PostModel postModel) {
         Long userId = postModel.getUserId();
-        User user = userService.findById(userId); //TODO: raise exception
+        User user = userService.findById(userId); // TODO: raise exception
         Post post = Post.builder()
-                    .caption(postModel.getCaption())
-                    .user(user)
-                    .build();
+                .caption(postModel.getCaption())
+                .user(user)
+                .build();
         System.out.println(user);
         System.out.println(post);
         return postRepository.save(post);
     }
 
-    public Post findPostById(Long postId){
-        return postRepository.findById(postId).get(); //TODO: raise exception
+    public Post findPostById(Long postId) {
+        return postRepository.findById(postId).get(); // TODO: raise exception
     }
 }

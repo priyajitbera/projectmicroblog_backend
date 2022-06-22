@@ -15,17 +15,17 @@ import com.projectmicroblog.microblog.service.ReplyService;
 @RestController
 @RequestMapping("reply")
 public class ReplyController {
-    
+
     @Autowired
     private ReplyService replyService;
 
     @PostMapping("/saveReply")
-    public Reply saveReply( @RequestBody ReplyModel replyModel){
+    public Reply saveReply(@RequestBody ReplyModel replyModel) {
         return replyService.saveReply(replyModel);
     }
 
     @GetMapping("/getReplyById")
-    public Reply getReply( @RequestParam(name="replyId") Long replyId){
+    public Reply getReply(@RequestParam(name = "replyId") Long replyId) {
         return replyService.findReplyById(replyId);
     }
 }

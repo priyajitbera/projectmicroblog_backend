@@ -30,17 +30,10 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 public class Reply {
-    
+
     @Id
-    @SequenceGenerator(
-        name = "reply_sequence",
-        sequenceName = "reply_sequence",
-        allocationSize = 1
-    )
-    @GeneratedValue(
-        strategy = GenerationType.SEQUENCE,
-        generator = "reply_sequence"
-    )
+    @SequenceGenerator(name = "reply_sequence", sequenceName = "reply_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reply_sequence")
     private Long replyId;
 
     @Column(nullable = false)
@@ -51,7 +44,7 @@ public class Reply {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "post_id", nullable=false)
+    @JoinColumn(name = "post_id", nullable = false)
     private Post post;
 
     @JsonIgnore
@@ -59,6 +52,6 @@ public class Reply {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    // @OneToMany(mappedBy = "reply")
-    // private List<Reaction> reactions;
+    @OneToMany(mappedBy = "reply")
+    private List<Reaction> reactions;
 }
