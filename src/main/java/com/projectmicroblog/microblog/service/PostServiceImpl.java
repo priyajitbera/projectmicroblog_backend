@@ -41,4 +41,20 @@ public class PostServiceImpl implements PostService {
                     HttpStatus.NOT_FOUND, "No Post found with given postId=" + postId);
         }
     }
+
+    public Post updatePostById(Long postId, PostModel postModel) {
+        if (postModel.getCaption().length() > 300) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "caption length exceeds 300 characters");
+        }
+        Post post = findPostById(postId);
+        post.setCaption(postModel.getCaption());
+        post.setEdited(true);
+        return postRepository.save(post);
+    }
+
+    public void deletePostById(Long postId) {
+        Post post = findPostById(postId);
+        postRepository.delete(post);
+    }
 }

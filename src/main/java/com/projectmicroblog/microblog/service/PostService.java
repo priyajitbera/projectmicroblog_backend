@@ -7,4 +7,8 @@ public interface PostService {
     public Post savePost(PostModel postModel);
 
     public Post findPostById(Long postId);
+
+    public Post updatePostById(Long postId, PostModel postModel);
+
+    public void deletePostById(Long postId);
 }
