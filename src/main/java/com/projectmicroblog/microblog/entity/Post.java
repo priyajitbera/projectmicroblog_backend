@@ -36,6 +36,8 @@ public class Post {
     @SequenceGenerator(name = "post_sequence", sequenceName = "post_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "post_sequence")
     private Long postId;
+
+    @Column(length = 300)
     private String caption;
 
     @Column(nullable = false)

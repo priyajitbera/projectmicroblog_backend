@@ -1,7 +1,9 @@
 package com.projectmicroblog.microblog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.projectmicroblog.microblog.entity.Post;
 import com.projectmicroblog.microblog.entity.Reply;
@@ -21,11 +23,13 @@ public class ReplyServiceImpl implements ReplyService {
     @Autowired
     private ReplyRepository replyRepository;
 
-    public Reply saveReply(ReplyModel replyModel) { // TODO: implement method
-
-        User user = userService.findById(replyModel.getUserId()); // TODO: raise exception
-        Post post = postService.findPostById(replyModel.getPostId()); // TODO: raise exception
-
+    public Reply saveReply(ReplyModel replyModel) {
+        if (replyModel.getReply().length() > 300) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "reply length exceeds 300 characters");
+        }
+        User user = userService.findById(replyModel.getUserId());
+        Post post = postService.findPostById(replyModel.getPostId());
         Reply reply = Reply.builder()
                 .user(user)
                 .post(post)
@@ -36,6 +40,11 @@ public class ReplyServiceImpl implements ReplyService {
     }
 
     public Reply findReplyById(Long replyId) {
-        return replyRepository.findById(replyId).get();
+        try {
+            return replyRepository.findById(replyId).get();
+        } catch (Exception exception) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "No Reply found with replyId=" + replyId);
+        }
     }
 }

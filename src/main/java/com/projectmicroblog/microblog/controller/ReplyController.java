@@ -13,7 +13,7 @@ import com.projectmicroblog.microblog.model.ReplyModel;
 import com.projectmicroblog.microblog.service.ReplyService;
 
 @RestController
-@RequestMapping("reply")
+@RequestMapping("/reply")
 public class ReplyController {
 
     @Autowired

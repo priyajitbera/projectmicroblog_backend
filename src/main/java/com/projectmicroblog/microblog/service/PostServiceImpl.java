@@ -1,7 +1,9 @@
 package com.projectmicroblog.microblog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.projectmicroblog.microblog.entity.Post;
 import com.projectmicroblog.microblog.entity.User;
@@ -18,18 +20,25 @@ public class PostServiceImpl implements PostService {
     private UserService userService;
 
     public Post savePost(PostModel postModel) {
+        if (postModel.getCaption().length() > 300) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "caption length exceeds 300 characters");
+        }
         Long userId = postModel.getUserId();
-        User user = userService.findById(userId); // TODO: raise exception
+        User user = userService.findById(userId);
         Post post = Post.builder()
                 .caption(postModel.getCaption())
                 .user(user)
                 .build();
-        System.out.println(user);
-        System.out.println(post);
         return postRepository.save(post);
     }
 
     public Post findPostById(Long postId) {
-        return postRepository.findById(postId).get(); // TODO: raise exception
+        try {
+            return postRepository.findById(postId).get();
+        } catch (Exception e) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "No Post found with given postId=" + postId);
+        }
     }
 }

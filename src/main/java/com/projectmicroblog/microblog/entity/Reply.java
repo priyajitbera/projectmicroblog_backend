@@ -36,7 +36,7 @@ public class Reply {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reply_sequence")
     private Long replyId;
 
-    @Column(nullable = false)
+    @Column(length = 300)
     private String reply;
 
     @Builder.Default

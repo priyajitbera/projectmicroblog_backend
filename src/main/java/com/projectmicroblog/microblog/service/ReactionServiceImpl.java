@@ -1,7 +1,9 @@
 package com.projectmicroblog.microblog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.projectmicroblog.microblog.entity.Post;
 import com.projectmicroblog.microblog.entity.Reaction;
@@ -30,11 +32,15 @@ public class ReactionServiceImpl implements ReactionService {
         Reaction savedReaction;
         // for Reaction on Post
         if (reactionModel.getPostId() != null) {
-            // check if post already reacted by user, to avoid duplication
-            if (isReactedToPost(reactionModel.getPostId(), reactionModel.getUserId()))
-                return null; // TODO: raise exception
+            // check if post already reacted by user, to avoid duplicate reaction
+            if (isReactedToPost(reactionModel.getPostId(), reactionModel.getUserId())) {
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST, "User with userId=" + reactionModel.getUserId()
+                                + " already reacted to Post with postId="
+                                + reactionModel.getPostId());
+            }
 
-            Post post = postService.findPostById(reactionModel.getPostId()); // TODO: raise exception
+            Post post = postService.findPostById(reactionModel.getPostId());
             Reaction reaction = Reaction.builder()
                     .user(user)
                     .post(post) // for Reaction on Post
@@ -43,11 +49,15 @@ public class ReactionServiceImpl implements ReactionService {
         }
         // for Reaction on Reply
         else {
-            // check if reply arleady reacted by user, to avoid duplication
-            if (isReactedToReply(reactionModel.getReplyId(), reactionModel.getUserId()))
-                return null; // TODO: raise exception
+            // check if reply already reacted by user, to avoid duplication
+            if (isReactedToReply(reactionModel.getReplyId(), reactionModel.getUserId())) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                        "User with userId=" + reactionModel.getUserId()
+                                + " already reacted to Reply with replyId="
+                                + reactionModel.getReplyId());
+            }
 
-            Reply reply = replyService.findReplyById(reactionModel.getReplyId()); // TODO: raise exception
+            Reply reply = replyService.findReplyById(reactionModel.getReplyId());
             Reaction reaction = Reaction.builder()
                     .user(user)
                     .reply(reply) // for Reaction on Reply
@@ -58,7 +68,12 @@ public class ReactionServiceImpl implements ReactionService {
     }
 
     public Reaction findReactionById(Long reactionId) {
-        return reactionRepository.findById(reactionId).get(); // TODO: raise exception
+        try {
+            return reactionRepository.findById(reactionId).get();
+        } catch (Exception execption) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "No Reaction found with reactionId=" + reactionId);
+        }
     }
 
     public boolean isReactedToPost(Long postId, Long userId) {

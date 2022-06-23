@@ -63,4 +63,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Reaction> reactions;
 
+    @OneToMany(mappedBy = "followee")
+    private List<Follow> followees;
+
+    @OneToMany(mappedBy = "follower")
+    private List<Follow> followers;
 }
