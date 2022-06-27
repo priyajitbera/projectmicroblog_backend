@@ -37,5 +37,5 @@ public class Follow {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "followee_id", nullable = false)
-    private User followee; // who is beging followed
+    private User followee; // who is being followed
 }

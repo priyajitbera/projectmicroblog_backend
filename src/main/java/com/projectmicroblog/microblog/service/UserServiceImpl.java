@@ -16,11 +16,17 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     public User saveUser(UserModel userModel) {
-        String userName = userModel.getUserName();
-        if (!isUserNameAvailable(userName)) {
+        // data validity check
+        UserModel.validateFirstName(userModel.getFirstName());
+        UserModel.validateLastName(userModel.getLastName());
+        UserModel.validateEmail(userModel.getEmail());
+        UserModel.validateUserName(userModel.getUserName());
+        // userName availabilty check
+        if (!isUserNameAvailable(userModel.getUserName())) {
             throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "Requested userName=" + userName + " is unavailable");
+                    HttpStatus.BAD_REQUEST, "Requested userName=" + userModel.getUserName() + " is unavailable");
         }
+
         User user = User.builder()
                 .userName(userModel.getUserName())
                 .firstName(userModel.getFirstName())
@@ -40,6 +46,8 @@ public class UserServiceImpl implements UserService {
     }
 
     public User findByUserName(String userName) {
+        // data validity check
+        UserModel.validateUserName(userName);
         try {
             return userRepository.findByUserName(userName).get();
         } catch (Exception exception) {
@@ -49,6 +57,8 @@ public class UserServiceImpl implements UserService {
     }
 
     public boolean isUserNameAvailable(String userName) {
+        // data validty check
+        UserModel.validateUserName(userName);
         return !userRepository.findByUserName(userName).isPresent();
     }
 }

@@ -28,7 +28,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class Reply {
-
+    public static final int REPLY_CHAR_LIMIT = 300;
     @Id
     @SequenceGenerator(name = "reply_sequence", sequenceName = "reply_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reply_sequence")

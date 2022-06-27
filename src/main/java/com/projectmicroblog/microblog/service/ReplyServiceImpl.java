@@ -24,10 +24,8 @@ public class ReplyServiceImpl implements ReplyService {
     private ReplyRepository replyRepository;
 
     public Reply saveReply(ReplyModel replyModel) {
-        if (replyModel.getReply().length() > 300) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "reply length exceeds 300 characters");
-        }
+        // data validity check
+        ReplyModel.validateReply(replyModel.getReply());
         User user = userService.findById(replyModel.getUserId());
         Post post = postService.findPostById(replyModel.getPostId());
         Reply reply = Reply.builder()

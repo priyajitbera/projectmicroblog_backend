@@ -15,7 +15,7 @@ import com.projectmicroblog.microblog.model.PostModel;
 import com.projectmicroblog.microblog.service.PostService;
 
 @RestController
-@RequestMapping("/post")
+@RequestMapping("/rest/post")
 public class PostController {
 
     @Autowired

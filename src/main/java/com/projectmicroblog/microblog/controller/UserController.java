@@ -13,7 +13,7 @@ import com.projectmicroblog.microblog.model.UserModel;
 import com.projectmicroblog.microblog.service.UserService;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/rest/user")
 public class UserController {
 
     @Autowired

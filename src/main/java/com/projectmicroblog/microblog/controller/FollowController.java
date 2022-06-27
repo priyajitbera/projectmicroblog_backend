@@ -13,7 +13,7 @@ import com.projectmicroblog.microblog.model.FollowModel;
 import com.projectmicroblog.microblog.service.FollowService;
 
 @RestController
-@RequestMapping("/follow")
+@RequestMapping("/rest/follow")
 public class FollowController {
 
     @Autowired

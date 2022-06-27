@@ -13,7 +13,7 @@ import com.projectmicroblog.microblog.model.ReactionModel;
 import com.projectmicroblog.microblog.service.ReactionService;
 
 @RestController
-@RequestMapping("/reaction")
+@RequestMapping("/rest/reaction")
 public class ReactionController {
 
     @Autowired

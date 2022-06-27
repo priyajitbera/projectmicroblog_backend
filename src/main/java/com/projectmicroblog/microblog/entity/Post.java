@@ -28,13 +28,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class Post {
-
+    public static final int CAPTION_CHAR_LIMIT = 300;
     @Id
     @SequenceGenerator(name = "post_sequence", sequenceName = "post_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "post_sequence")
     private Long postId;
 
-    @Column(length = 300)
+    @Column(length = CAPTION_CHAR_LIMIT)
     private String caption;
 
     @Column(nullable = false)

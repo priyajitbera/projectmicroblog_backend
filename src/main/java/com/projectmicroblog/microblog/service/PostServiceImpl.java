@@ -20,10 +20,8 @@ public class PostServiceImpl implements PostService {
     private UserService userService;
 
     public Post savePost(PostModel postModel) {
-        if (postModel.getCaption().length() > 300) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "caption length exceeds 300 characters");
-        }
+        // data validity check
+        PostModel.validateCaption(postModel.getCaption());
         Long userId = postModel.getUserId();
         User user = userService.findById(userId);
         Post post = Post.builder()
@@ -43,10 +41,8 @@ public class PostServiceImpl implements PostService {
     }
 
     public Post updatePostById(Long postId, PostModel postModel) {
-        if (postModel.getCaption().length() > 300) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "caption length exceeds 300 characters");
-        }
+        // data validity check
+        PostModel.validateCaption(postModel.getCaption());
         Post post = findPostById(postId);
         post.setCaption(postModel.getCaption());
         post.setEdited(true);
