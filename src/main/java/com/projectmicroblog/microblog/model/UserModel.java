@@ -23,26 +23,30 @@ public class UserModel {
 
     public static void validateUserName(String userName) {
         if (userName == null || userName.equals("")) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "userName is null or empty string");
         }
     }
 
     public static void validateFirstName(String firstName) {
         if (firstName == null || firstName.equals("")) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "firstName is null or empty string");
         }
     }
 
     public static void validateLastName(String lastName) {
         if (lastName == null || lastName.equals("")) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "lastName is null or empty string");
         }
     }
 
     public static void validateEmail(String email) {
         String regex = "^(.+)@(.+)$";
-        if (!Pattern.compile(regex).matcher(email).matches()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        if (email == null || !Pattern.compile(regex).matcher(email).matches()) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "email is null or not in valid format");
         }
     }
 }

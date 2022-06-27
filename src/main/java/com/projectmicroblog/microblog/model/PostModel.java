@@ -20,7 +20,8 @@ public class PostModel {
 
     public static void validateCaption(String caption) {
         if (caption == null || caption.length() > Post.CAPTION_CHAR_LIMIT) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "caption exceeds char limit=" + Post.CAPTION_CHAR_LIMIT);
         }
     }
 }

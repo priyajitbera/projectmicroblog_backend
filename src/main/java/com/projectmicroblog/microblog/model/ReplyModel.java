@@ -21,7 +21,8 @@ public class ReplyModel {
 
     public static void validateReply(String reply) {
         if (reply == null || reply.length() > Reply.REPLY_CHAR_LIMIT) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "reply exceeds char limit=" + Reply.REPLY_CHAR_LIMIT);
         }
     }
 
