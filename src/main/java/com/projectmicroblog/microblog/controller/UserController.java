@@ -25,8 +25,8 @@ public class UserController {
     }
 
     @GetMapping("/getUserById")
-    public User getUser(@RequestParam(name = "userId") Long userId) {
-        return userService.findById(userId);
+    public User getUserById(@RequestParam(name = "userId") Long userId) {
+        return userService.findUserById(userId);
     }
 
     @GetMapping("/getByUserName")
@@ -37,5 +37,10 @@ public class UserController {
     @GetMapping("/isUserNameAvailable")
     public boolean isUserNameAvailable(@RequestParam(name = "userName") String userName) {
         return userService.isUserNameAvailable(userName);
+    }
+
+    @GetMapping("/isEmailAvailable")
+    public boolean isEmailAvaialable(@RequestParam(name = "email") String email) {
+        return userService.isEmailAvailable(email);
     }
 }

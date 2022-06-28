@@ -23,7 +23,7 @@ public class PostServiceImpl implements PostService {
         // data validity check
         PostModel.validateCaption(postModel.getCaption());
         Long userId = postModel.getUserId();
-        User user = userService.findById(userId);
+        User user = userService.findUserById(userId);
         Post post = Post.builder()
                 .caption(postModel.getCaption())
                 .user(user)
@@ -50,7 +50,11 @@ public class PostServiceImpl implements PostService {
     }
 
     public void deletePostById(Long postId) {
-        Post post = findPostById(postId);
-        postRepository.delete(post);
+        try {
+            postRepository.deleteById(postId);
+        } catch (Exception exception) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "No Post found with given postId=" + postId);
+        }
     }
 }

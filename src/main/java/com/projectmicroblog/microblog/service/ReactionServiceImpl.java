@@ -28,7 +28,7 @@ public class ReactionServiceImpl implements ReactionService {
     ReactionRepository reactionRepository;
 
     public Reaction saveReaction(ReactionModel reactionModel) {
-        User user = userService.findById(reactionModel.getUserId());
+        User user = userService.findUserById(reactionModel.getUserId());
         Reaction savedReaction;
         // for Reaction on Post
         if (reactionModel.getPostId() != null) {
@@ -82,5 +82,14 @@ public class ReactionServiceImpl implements ReactionService {
 
     public boolean isReactedToReply(Long replyId, Long userId) {
         return reactionRepository.findByReplyIdAndUserId(replyId, userId).isPresent();
+    }
+
+    public void deleteReactionById(Long reactionId) {
+        try {
+            reactionRepository.deleteById(reactionId);
+        } catch (Exception exception) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "reactionId=" + reactionId + " is null or not found");
+        }
     }
 }

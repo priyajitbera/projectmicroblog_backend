@@ -27,8 +27,8 @@ public class FollowServiceImpl implements FollowService {
                             + " already follows Followee with followeeId="
                             + followModel.getFolloweeId());
         }
-        User follower = userService.findById(followModel.getFollowerId());
-        User followee = userService.findById(followModel.getFolloweeId());
+        User follower = userService.findUserById(followModel.getFollowerId());
+        User followee = userService.findUserById(followModel.getFolloweeId());
 
         Follow follow = Follow.builder()
                 .follower(follower)

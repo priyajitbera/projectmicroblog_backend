@@ -9,7 +9,9 @@ public interface UserService {
 
     public boolean isUserNameAvailable(String userName);
 
-    public User findById(Long userId);
+    public User findUserById(Long userId);
 
     public User findByUserName(String userName);
+
+    public boolean isEmailAvailable(String email);
 }

@@ -26,7 +26,7 @@ public class ReplyServiceImpl implements ReplyService {
     public Reply saveReply(ReplyModel replyModel) {
         // data validity check
         ReplyModel.validateReply(replyModel.getReply());
-        User user = userService.findById(replyModel.getUserId());
+        User user = userService.findUserById(replyModel.getUserId());
         Post post = postService.findPostById(replyModel.getPostId());
         Reply reply = Reply.builder()
                 .user(user)
@@ -43,6 +43,28 @@ public class ReplyServiceImpl implements ReplyService {
         } catch (Exception exception) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "No Reply found with replyId=" + replyId);
+        }
+    }
+
+    public Reply updateReplyById(Long replyId, ReplyModel replyModel) {
+        // data validity check
+        ReplyModel.validateReply(replyModel.getReply());
+        try {
+            Reply reply = replyRepository.findById(replyId).get();
+            reply.setReply(replyModel.getReply());
+            return replyRepository.save(reply);
+        } catch (Exception exection) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "No Reply found with replyId=" + replyId);
+        }
+    }
+
+    public void deleteReplyById(Long replyId) {
+        try {
+            replyRepository.deleteById(replyId);
+        } catch (Exception exception) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "replyId=" + replyId + " is null or not present");
         }
     }
 }

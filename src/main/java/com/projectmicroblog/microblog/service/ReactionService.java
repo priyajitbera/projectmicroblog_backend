@@ -12,4 +12,6 @@ public interface ReactionService {
     public boolean isReactedToPost(Long postId, Long userId);
 
     public boolean isReactedToReply(Long replyId, Long UserId);
+
+    public void deleteReactionById(Long reactionId);
 }
