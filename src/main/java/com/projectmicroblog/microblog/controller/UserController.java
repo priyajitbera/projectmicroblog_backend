@@ -2,14 +2,11 @@ package com.projectmicroblog.microblog.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projectmicroblog.microblog.entity.User;
-import com.projectmicroblog.microblog.model.UserModel;
 import com.projectmicroblog.microblog.service.UserService;
 
 @RestController
@@ -19,24 +16,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // @PostMapping("/saveUser")
-    // public User saveUser(@RequestBody UserModel userModel) {
-    // return userService.saveUser(userModel);
-    // }
-
     @GetMapping("/getUserById")
     public User getUserById(@RequestParam(name = "userId") Long userId) {
         return userService.findUserById(userId);
     }
 
-    @GetMapping("/getByUserName")
-    public User getUserByUserName(@RequestParam(name = "userName") String userName) {
-        return userService.findByUserName(userName);
+    @GetMapping("/getUserByHandle")
+    public User getUserByUserName(@RequestParam(name = "userName") String handle) {
+        return userService.findUserByHandle(handle);
     }
 
-    @GetMapping("/isUserNameAvailable")
-    public boolean isUserNameAvailable(@RequestParam(name = "userName") String userName) {
-        return userService.isUserNameAvailable(userName);
+    @GetMapping("/isHandleAvailable")
+    public boolean isUserNameAvailable(@RequestParam(name = "handle") String handle) {
+        return userService.isHandleAvailable(handle);
     }
 
     @GetMapping("/isEmailAvailable")

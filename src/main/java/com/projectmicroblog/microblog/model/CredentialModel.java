@@ -11,9 +11,10 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CredentialModel {
 
-    private String userName;
+    private String handle;
     private String firstName;
     private String lastName;
     private String email;
     private String password;
+    private String newPassword; // used to update password
 }

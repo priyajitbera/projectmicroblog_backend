@@ -27,7 +27,7 @@ public class Credential {
     private Long credentialId;
 
     @Column(nullable = false, unique = true)
-    private String userName;
+    private String handle;
 
     @Column(nullable = false, unique = true)
     private String email;

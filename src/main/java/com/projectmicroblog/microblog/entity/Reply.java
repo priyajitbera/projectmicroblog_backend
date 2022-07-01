@@ -34,9 +34,10 @@ public class Reply {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reply_sequence")
     private Long replyId;
 
-    @Column(length = 300)
+    @Column(length = REPLY_CHAR_LIMIT)
     private String reply;
 
+    @Column(nullable = false)
     @Builder.Default
     private Date creationDate = new Date();
 

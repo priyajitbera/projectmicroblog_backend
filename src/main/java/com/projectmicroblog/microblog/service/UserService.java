@@ -7,11 +7,11 @@ public interface UserService {
 
     public User saveUser(UserModel userModel);
 
-    public boolean isUserNameAvailable(String userName);
+    public boolean isHandleAvailable(String userName);
 
     public User findUserById(Long userId);
 
-    public User findByUserName(String userName);
+    public User findUserByHandle(String handle);
 
     public boolean isEmailAvailable(String email);
 }

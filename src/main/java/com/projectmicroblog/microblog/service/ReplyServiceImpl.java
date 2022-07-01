@@ -25,7 +25,6 @@ public class ReplyServiceImpl implements ReplyService {
 
     public Reply saveReply(ReplyModel replyModel) {
         // data validity check
-        ReplyModel.validateReply(replyModel.getReply());
         User user = userService.findUserById(replyModel.getUserId());
         Post post = postService.findPostById(replyModel.getPostId());
         Reply reply = Reply.builder()
@@ -48,7 +47,6 @@ public class ReplyServiceImpl implements ReplyService {
 
     public Reply updateReplyById(Long replyId, ReplyModel replyModel) {
         // data validity check
-        ReplyModel.validateReply(replyModel.getReply());
         try {
             Reply reply = replyRepository.findById(replyId).get();
             reply.setReply(replyModel.getReply());

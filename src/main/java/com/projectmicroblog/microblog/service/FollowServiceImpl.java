@@ -21,11 +21,7 @@ public class FollowServiceImpl implements FollowService {
 
     public Follow saveFollow(FollowModel followModel) {
         if (isFollows(followModel.getFolloweeId(), followModel.getFollowerId())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "Follower with followerId="
-                            + followModel.getFollowerId()
-                            + " already follows Followee with followeeId="
-                            + followModel.getFolloweeId());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         User follower = userService.findUserById(followModel.getFollowerId());
         User followee = userService.findUserById(followModel.getFolloweeId());
@@ -34,16 +30,18 @@ public class FollowServiceImpl implements FollowService {
                 .follower(follower)
                 .followee(followee)
                 .build();
-
-        return followRepository.save(follow);
+        try {
+            return followRepository.save(follow);
+        } catch (Exception ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
     }
 
     public Follow findFollowById(Long followId) {
         try {
             return followRepository.findById(followId).get();
-        } catch (Exception exception) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "No Follow found for followId=" + followId);
+        } catch (Exception ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 

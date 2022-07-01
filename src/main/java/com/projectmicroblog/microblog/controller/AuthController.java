@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.projectmicroblog.microblog.entity.User;
 import com.projectmicroblog.microblog.model.CredentialModel;
 import com.projectmicroblog.microblog.model.JwtRequest;
 import com.projectmicroblog.microblog.model.JwtResponse;
@@ -21,14 +22,19 @@ public class AuthController {
     AuthService authService;
 
     @PostMapping("/authenticate")
-    public JwtResponse createAuthenticationToken(
+    public JwtResponse authenticate(
             @RequestBody JwtRequest jwtRequest) {
         String token = authService.generateToken(jwtRequest.getUsername(), jwtRequest.getPassword());
         return new JwtResponse(token);
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody CredentialModel credentialModel) {
+    public User register(@RequestBody CredentialModel credentialModel) {
         return authService.registerUser(credentialModel);
+    }
+
+    @PostMapping("/updatePassword")
+    public void updatePassword(@RequestBody CredentialModel credentialModel) {
+        authService.updatePassword(credentialModel);
     }
 }

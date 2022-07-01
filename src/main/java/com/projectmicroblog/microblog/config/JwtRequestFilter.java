@@ -24,7 +24,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Autowired
-    private UserDetailsService jwtUserDetailsService;
+    private UserDetailsService userDetailsService;
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
@@ -55,7 +55,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         // Once we get the token validate it.
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            UserDetails userDetails = this.jwtUserDetailsService.loadUserByUsername(username);
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 
             // if token is valid configure Spring Security to manually set
             // authentication

@@ -20,41 +20,42 @@ public class PostServiceImpl implements PostService {
     private UserService userService;
 
     public Post savePost(PostModel postModel) {
-        // data validity check
-        PostModel.validateCaption(postModel.getCaption());
-        Long userId = postModel.getUserId();
-        User user = userService.findUserById(userId);
+        User user = userService.findUserById(postModel.getUserId());
         Post post = Post.builder()
                 .caption(postModel.getCaption())
                 .user(user)
                 .build();
-        return postRepository.save(post);
+        try {
+            return postRepository.save(post);
+        } catch (Exception ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
     }
 
     public Post findPostById(Long postId) {
         try {
             return postRepository.findById(postId).get();
-        } catch (Exception e) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "No Post found with given postId=" + postId);
+        } catch (Exception ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 
     public Post updatePostById(Long postId, PostModel postModel) {
-        // data validity check
-        PostModel.validateCaption(postModel.getCaption());
         Post post = findPostById(postId);
         post.setCaption(postModel.getCaption());
         post.setEdited(true);
-        return postRepository.save(post);
+        try {
+            return postRepository.save(post);
+        } catch (Exception ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
     }
 
     public void deletePostById(Long postId) {
         try {
             postRepository.deleteById(postId);
         } catch (Exception exception) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "No Post found with given postId=" + postId);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 }

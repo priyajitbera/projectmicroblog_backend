@@ -16,29 +16,28 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     public User saveUser(UserModel userModel) {
-        // data validity check
-        UserModel.validateFirstName(userModel.getFirstName());
-        UserModel.validateLastName(userModel.getLastName());
-        UserModel.validateEmail(userModel.getEmail());
-        UserModel.validateUserName(userModel.getUserName());
         // email availabilty check
         if (!isEmailAvailable(userModel.getEmail())) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "email=" + userModel.getEmail() + " is unavailable");
         }
-        // userName availabilty check
-        if (!isUserNameAvailable(userModel.getUserName())) {
+        // handle availabilty check
+        if (!isHandleAvailable(userModel.getHandle())) {
             throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "userName=" + userModel.getUserName() + " is unavailable");
+                    HttpStatus.BAD_REQUEST, "userName=" + userModel.getHandle() + " is unavailable");
         }
 
         User user = User.builder()
-                .userName(userModel.getUserName())
+                .handle(userModel.getHandle())
                 .firstName(userModel.getFirstName())
                 .lastName(userModel.getLastName())
                 .email(userModel.getEmail())
                 .build();
-        return userRepository.save(user);
+        try { // handles bad data
+            return userRepository.save(user);
+        } catch (Exception ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
     }
 
     public User findUserById(Long userId) {
@@ -50,28 +49,21 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public User findByUserName(String userName) {
-        // data validity check
-        UserModel.validateUserName(userName);
+    public User findUserByHandle(String handle) {
         try {
-            return userRepository.findByUserName(userName).get();
+            return userRepository.findByHandle(handle).get();
         } catch (Exception exception) {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "No User found with userName=" + userName);
+                    HttpStatus.NOT_FOUND, "No User found with handle=" + handle);
         }
     }
 
-    public boolean isUserNameAvailable(String userName) {
-        // data validty check
-        UserModel.validateUserName(userName);
-        return !userRepository.findByUserName(userName).isPresent();
+    public boolean isHandleAvailable(String handle) {
+        return !userRepository.findByHandle(handle).isPresent();
     }
 
     public boolean isEmailAvailable(String email) {
         System.out.println("in isEmailAvail()");
-        // data validity check
-        UserModel.validateEmail(email);
         return !userRepository.findByEmail(email).isPresent();
-
     }
 }

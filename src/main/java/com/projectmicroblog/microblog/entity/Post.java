@@ -35,7 +35,7 @@ public class Post {
     private Long postId;
 
     @Column(length = CAPTION_CHAR_LIMIT)
-    private String caption;
+    private String caption; // caption is allowed to be kept empty or null
 
     @Column(nullable = false)
     @Builder.Default

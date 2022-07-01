@@ -24,25 +24,27 @@ import lombok.Setter;
 @Builder
 public class User {
     public static final String INDIVIDUAL = "individual";
-    public static final String ORGANAZATION = "organization";
+    public static final String ORGANAIZATION = "organization";
     @Id
     @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
     private Long userId;
 
     @Column(nullable = false, unique = true)
-    private String userName;
+    private String handle; // unique to each User
 
     @Column(nullable = false)
     private String firstName;
     private String lastName;
 
     @Column(nullable = false, unique = true)
-    private String email;
+    private String email; // unique to each User
 
+    @Column(nullable = false)
     @Builder.Default
     private Boolean verified = false;
 
+    @Column(nullable = false)
     @Builder.Default
     private String type = User.INDIVIDUAL; // DEFAULT
 

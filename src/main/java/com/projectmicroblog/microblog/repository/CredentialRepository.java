@@ -10,7 +10,9 @@ import com.projectmicroblog.microblog.entity.Credential;
 @Repository
 public interface CredentialRepository extends JpaRepository<Credential, Long> {
 
-    Optional<Credential> findByUserName(String username);
+    Optional<Credential> findByHandleOrEmail(String username, String email);
+
+    Optional<Credential> findByHandle(String username);
 
     Optional<Credential> findByEmail(String email);
 }

@@ -1,5 +1,6 @@
 package com.projectmicroblog.microblog.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,6 +32,7 @@ public class Reaction {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reaction_sequence")
     private Long reactionId;
 
+    @Column(nullable = false)
     @Builder.Default
     private String type = Reaction.LIKE; // DEFAULT
 
