@@ -19,10 +19,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/saveUser")
-    public User saveUser(@RequestBody UserModel userModel) {
-        return userService.saveUser(userModel);
-    }
+    // @PostMapping("/saveUser")
+    // public User saveUser(@RequestBody UserModel userModel) {
+    // return userService.saveUser(userModel);
+    // }
 
     @GetMapping("/getUserById")
     public User getUserById(@RequestParam(name = "userId") Long userId) {
