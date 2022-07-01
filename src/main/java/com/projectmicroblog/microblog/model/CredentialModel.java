@@ -16,5 +16,5 @@ public class CredentialModel {
     private String lastName;
     private String email;
     private String password;
-    private String newPassword; // used to update password
+    private String newPassword; // used in updating password
 }
