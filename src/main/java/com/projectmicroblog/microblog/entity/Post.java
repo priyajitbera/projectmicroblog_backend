@@ -47,13 +47,7 @@ public class Post {
     private Boolean edited = false;
 
     @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "userId", nullable = false)
     private User user;
-
-    @OneToMany(mappedBy = "post")
-    private List<Reply> replies;
-
-    @OneToMany(mappedBy = "post")
-    private List<Reaction> reactions;
 }

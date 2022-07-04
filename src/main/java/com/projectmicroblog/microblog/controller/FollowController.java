@@ -1,5 +1,7 @@
 package com.projectmicroblog.microblog.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projectmicroblog.microblog.entity.Follow;
+import com.projectmicroblog.microblog.entity.User;
 import com.projectmicroblog.microblog.model.FollowModel;
 import com.projectmicroblog.microblog.service.FollowService;
 
@@ -34,5 +37,10 @@ public class FollowController {
             @RequestParam(name = "followeeId") Long followeeId,
             @RequestParam(name = "followerId") Long followerId) {
         return followService.isFollows(followeeId, followerId);
+    }
+
+    @GetMapping("/getFollowers")
+    public List<User> getFollowers(@RequestParam(name = "followeeId") Long followeeId) {
+        return followService.findFollowers(followeeId);
     }
 }

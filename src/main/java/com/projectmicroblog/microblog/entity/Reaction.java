@@ -2,6 +2,7 @@ package com.projectmicroblog.microblog.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,17 +38,17 @@ public class Reaction {
     private String type = Reaction.LIKE; // DEFAULT
 
     @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "userId", nullable = false)
     private User user;
 
     @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "post_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id", referencedColumnName = "postId", nullable = false)
     private Post post;
 
     @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "reply_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reply_id", referencedColumnName = "replyId", nullable = false)
     private Reply reply;
 }

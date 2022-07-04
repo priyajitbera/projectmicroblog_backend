@@ -1,5 +1,9 @@
 package com.projectmicroblog.microblog.service;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -48,5 +52,17 @@ public class FollowServiceImpl implements FollowService {
     public boolean isFollows(Long followeeId, Long followerId) {
         return followRepository.findByFolloweeIdAndFollowerId(
                 followeeId, followerId).isPresent();
+    }
+
+    public List<User> findFollowers(Long followeeId) {
+        // get the list of Follow entity by followeeId
+        List<Follow> followList = followRepository.findByFolloweeId(followeeId);
+        // get followers from Follow entity objects
+        // store in a list and return
+        List<User> followerList = new ArrayList<>();
+        for (Follow follow : followList) {
+            followerList.add(follow.getFollower());
+        }
+        return followerList;
     }
 }

@@ -49,18 +49,18 @@ public class User {
     @Builder.Default
     private String type = User.INDIVIDUAL; // DEFAULT
 
-    @OneToMany(mappedBy = "user")
-    private List<Post> posts;
+    // @OneToMany(mappedBy = "user")
+    // private List<Post> posts;
 
-    @OneToMany(mappedBy = "user")
-    private List<Reply> replies;
+    // @OneToMany(mappedBy = "user")
+    // private List<Reply> replies;
 
-    @OneToMany(mappedBy = "user")
-    private List<Reaction> reactions;
+    // @OneToMany(mappedBy = "user")
+    // private List<Reaction> reactions;
 
-    @OneToMany(mappedBy = "followee")
-    private List<Follow> followees;
+    // @OneToMany(mappedBy = "followee")
+    // private List<Follow> followees;
 
-    @OneToMany(mappedBy = "follower")
-    private List<Follow> followers;
+    // @OneToMany(mappedBy = "follower")
+    // private List<Follow> followers;
 }

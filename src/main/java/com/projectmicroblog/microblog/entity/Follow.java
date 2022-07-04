@@ -1,6 +1,7 @@
 package com.projectmicroblog.microblog.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,12 +31,12 @@ public class Follow {
     private Long followId;
 
     @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "follower_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "follower_id", referencedColumnName = "userId", nullable = false)
     private User follower; // who is following
 
     @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "followee_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "followee_id", referencedColumnName = "userId", nullable = false)
     private User followee; // who is being followed
 }

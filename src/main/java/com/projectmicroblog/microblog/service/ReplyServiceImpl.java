@@ -46,7 +46,6 @@ public class ReplyServiceImpl implements ReplyService {
     }
 
     public Reply updateReplyById(Long replyId, ReplyModel replyModel) {
-        // data validity check
         try {
             Reply reply = replyRepository.findById(replyId).get();
             reply.setReply(replyModel.getReply());
