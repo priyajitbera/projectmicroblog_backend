@@ -1,6 +1,9 @@
 package com.projectmicroblog.microblog.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -15,6 +18,7 @@ import com.projectmicroblog.microblog.model.PostModel;
 import com.projectmicroblog.microblog.service.PostService;
 
 @RestController
+// @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/rest/post")
 public class PostController {
 
@@ -42,5 +46,11 @@ public class PostController {
     @DeleteMapping("/deletePostById")
     public void deletePostById(@RequestParam(name = "postId") Long postId) {
         postService.deletePostById(postId);
+    }
+
+    @GetMapping("/getPostByUserId")
+    public List<Post> getPostsByUserId(@RequestParam(name = "userId") Long userId) {
+
+        return postService.getPostsByUserId(userId);
     }
 }

@@ -13,13 +13,15 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String[] EXPOSED_ENDPOINTS = { "/rest/auth/authenticate", "/rest/auth/register" };
+    private static final String[] EXPOSED_ENDPOINTS = { "/rest/auth/authenticate", "/rest/auth/register", "/hello" };
 
     @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;

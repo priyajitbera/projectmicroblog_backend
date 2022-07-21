@@ -15,7 +15,7 @@ import com.projectmicroblog.microblog.service.AuthService;
 
 @RestController
 @RequestMapping("/rest/auth")
-@CrossOrigin
+// @CrossOrigin
 public class AuthController {
 
     @Autowired
@@ -30,6 +30,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public User register(@RequestBody CredentialModel credentialModel) {
+        System.out.println(credentialModel.toString());
         return authService.registerUser(credentialModel);
     }
 

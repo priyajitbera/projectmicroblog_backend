@@ -1,5 +1,7 @@
 package com.projectmicroblog.microblog.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import com.projectmicroblog.microblog.entity.Post;
 import com.projectmicroblog.microblog.entity.User;
 import com.projectmicroblog.microblog.model.PostModel;
 import com.projectmicroblog.microblog.repository.PostRepository;
+import com.projectmicroblog.microblog.repository.UserRepository;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -57,5 +60,11 @@ public class PostServiceImpl implements PostService {
         } catch (Exception exception) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @Override
+    public List<Post> getPostsByUserId(Long userId) {
+        System.out.println("servie getPostsByUserId()");
+        return postRepository.findByUserId(userId);
     }
 }

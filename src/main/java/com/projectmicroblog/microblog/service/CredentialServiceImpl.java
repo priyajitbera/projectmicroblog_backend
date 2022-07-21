@@ -29,10 +29,16 @@ public class CredentialServiceImpl implements CredentialService {
     @Override
     public User saveCredential(CredentialModel credentialModel) {
         // create and save a new credential
+        String encryptedPassword = null;
+        try {
+            encryptedPassword = passwordEncoder.encode(credentialModel.getPassword());
+        } catch (Exception ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
         Credential credential = Credential.builder()
                 .handle(credentialModel.getHandle())
                 .email(credentialModel.getEmail())
-                .password(passwordEncoder.encode(credentialModel.getPassword()))
+                .password(encryptedPassword)
                 .build();
         try {
             credential = credentialRepository.save(credential);
